@@ -12,6 +12,8 @@ export class UsersService {
 
   async create(email, password): Promise<Users> {
     const user = this.repo.create({ email, password });
+
+    //to call the hooks inside of entity we need to pass user instance instead of passing simple object
     return this.repo.save(user);
   }
 }

@@ -7,10 +7,11 @@ import { Repository } from 'typeorm';
 export class UsersService {
   constructor(
     @InjectRepository(Users)
-    private readonly postRepository: Repository<Users>,
+    private readonly repo: Repository<Users>,
   ) {}
 
-  async create(users: Users): Promise<Users> {
-    return this.postRepository.save(users);
+  async create(email, password): Promise<Users> {
+    const user = this.repo.create({ email, password });
+    return this.repo.save(user);
   }
 }

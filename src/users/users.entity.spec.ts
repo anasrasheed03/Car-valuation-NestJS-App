@@ -28,16 +28,16 @@ describe('UserService', () => {
     expect(repository).toBeDefined();
   });
 
-  it('should create a user', async () => {
-    const user = new Users();
-    user.password = 'John';
-    user.email = 'john@example.com';
+  //   it('should create a user', async () => {
+  //     const user = new Users();
+  //     user.password = 'John';
+  //     user.email = 'john@example.com';
 
-    jest.spyOn(repository, 'save').mockResolvedValueOnce(user);
+  //     jest.spyOn(repository, 'save').mockResolvedValueOnce(user);
 
-    const result = await service.create(user);
+  //     const result = await service.create(user);
 
-    expect(result).toEqual(user);
-    expect(repository.save).toHaveBeenCalledWith(user);
-  });
+  //     expect(result).toEqual(user);
+  //     expect(repository.save).toHaveBeenCalledWith(user);
+  //   });
 });

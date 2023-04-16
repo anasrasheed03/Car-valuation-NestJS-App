@@ -1,10 +1,8 @@
 import {
   Body,
-  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
-  NotAcceptableException,
   NotFoundException,
   Param,
   Patch,
@@ -15,8 +13,11 @@ import {
 import { CreateUserDtos } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDtos } from './dtos/update-user.dto';
+import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
+import { UserDtos } from './dtos/user.dto';
 
 @Controller('auth')
+@UseInterceptors(new SerializeInterceptor(UserDtos))
 export class UsersController {
   constructor(private userService: UsersService) {}
   @Post('/signup')
@@ -24,7 +25,6 @@ export class UsersController {
     this.userService.create(body.email, body.password);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   async getUserById(@Param('id') id: string) {
     const user = await this.userService.findById(+id);
